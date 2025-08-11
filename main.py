@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from data import urban_routes_url
+
 
 # no modificar
 def retrieve_phone_code(driver) -> str:
@@ -53,6 +55,10 @@ class UrbanRoutesPage:
     def get_to(self):
         return self.driver.find_element(*self.to_field).get_property('value')
 
+    def set_route(self, from_address, to_address):
+        self.set_from(from_address)
+        self.set_to(to_address)
+
 
 
 class TestUrbanRoutes:
@@ -61,11 +67,12 @@ class TestUrbanRoutes:
 
     @classmethod
     def setup_class(cls):
-        # no lo modifiques, ya que necesitamos un registro adicional habilitado para recuperar el código de confirmación del teléfono
-        from selenium.webdriver import DesiredCapabilities
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
-        cls.driver = webdriver.Chrome(desired_capabilities=capabilities)
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.set_capability("goog:loggingPrefs", value={'performance':'ALL'})
+        cls.driver = webdriver.Chrome(service=Service(), options=chrome_options)
+        cls.driver.get(data.urban_routes_url)
+        cls.routes_page = UrbanRoutesPage(cls.driver)
+
 
     def test_set_route(self):
         self.driver.get(data.urban_routes_url)
