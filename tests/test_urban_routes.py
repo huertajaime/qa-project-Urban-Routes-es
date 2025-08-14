@@ -1,3 +1,5 @@
+import time
+
 from data import data
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -24,6 +26,13 @@ class TestUrbanRoutes:
         routes_page.set_route(address_from, address_to)
         assert routes_page.get_from() == address_from
         assert routes_page.get_to() == address_to
+
+
+    def test_set_options(self):
+        self.routes_page.click_on_taxi_button()
+        self.routes_page.click_comfort_option_button()
+
+        time.sleep(5)
 
 
     @classmethod
