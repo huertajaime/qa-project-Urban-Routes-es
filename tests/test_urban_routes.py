@@ -12,7 +12,7 @@ class TestUrbanRoutes:
     @classmethod
     def setup_class(cls):
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.set_capability("goog:loggingPrefs", value={'performance':'ALL'})
+        chrome_options.set_capability("goog:loggingPrefs", value={'performance': 'ALL'})
         cls.driver = webdriver.Chrome(service=Service(), options=chrome_options)
         cls.driver.get(data.urban_routes_url)
         cls.routes_page = urp.UrbanRoutesPage(cls.driver)
@@ -28,9 +28,26 @@ class TestUrbanRoutes:
         assert routes_page.get_to() == address_to
 
 
+
     def test_set_options(self):
         self.routes_page.click_on_taxi_button()
         self.routes_page.click_comfort_option_button()
+        self.routes_page.click_phone_number_button()
+        self.routes_page.set_add_phone_number()
+        self.routes_page.get_phone_number()
+        self.routes_page.click_on_submit_button()
+        self.routes_page.set_phone_code_field()
+        self.routes_page.click_on_confirm_button()
+        self.routes_page.click_on_payment_method()
+        self.routes_page.click_cc_button()
+        self.routes_page.set_cc_number()
+        self.routes_page.get_cc_number()
+        self.routes_page.get_cvv_code_field()
+        self.routes_page.set_cvv_code()
+        self.routes_page.get_cvv_code()
+        self.routes_page.click_on_tab_key()
+
+
 
         time.sleep(5)
 
