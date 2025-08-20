@@ -52,6 +52,9 @@ class TestUrbanRoutes:
         self.routes_page.get_message_field()
         self.routes_page.set_message_on_field()
         self.routes_page.get_message_on_field()
+        self.routes_page.get_requisites_for_ride()
+        self.routes_page.click_on_requisites_for_ride()
+
 
 
 

@@ -1,5 +1,3 @@
-from typing import AnyStr
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -25,11 +23,12 @@ class UrbanRoutesPage:
     cc_submit_button = (By.XPATH, "//button[@type='submit' and text()='Agregar']")
     close_pay_method = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
     message_field = (By.ID, 'comment')
-    requisites_for_ride = (By.XPATH, '//div[@class="reqs open"]//div[@class="r-sw-label" and text()="Manta y pañuelos" ]')
+    requisites_for_ride = (By.XPATH, '//div[@class="r-sw-container"][.//div[text()="Manta y pañuelos"]]//span[@class="slider"]')
+
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver,5)
+        self.wait = WebDriverWait(driver,15)
 
     def set_from(self, from_address):
         #self.driver.find_element(*self.from_field).send_keys(from_address)
@@ -157,10 +156,15 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.message_field).get_property('value')
 
     def get_requisites_for_ride(self):
-        return self.wait.until(EC.element_to_be_clickable(self.requisites_for_ride))
+        return self.wait.until(EC.visibility_of_element_located(self.requisites_for_ride))
 
     def click_on_requisites_for_ride(self):
-        self.get_requisites_for_ride().click()
+        checkbox = self.get_requisites_for_ride()
+        self.driver.execute_script("arguments[0].scrollIntoView(true);",checkbox)
+        self.wait.until(EC.element_to_be_clickable(self.requisites_for_ride)).click()
+
+
+
 
 
 
