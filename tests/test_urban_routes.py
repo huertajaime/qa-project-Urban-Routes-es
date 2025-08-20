@@ -45,6 +45,16 @@ class TestUrbanRoutes:
         self.routes_page.get_cvv_code_field()
         self.routes_page.set_cvv_code()
         self.routes_page.get_cvv_code()
+        self.routes_page.get_cc_submit_button()
+        self.routes_page.click_cc_submit_button()
+        self.routes_page.get_close_pay_method_button()
+        self.routes_page.click_close_pay_method_button()
+        self.routes_page.get_message_field()
+        self.routes_page.set_message_on_field()
+        self.routes_page.get_message_on_field()
+
+
+
         #self.routes_page.click_on_tab_key()
 
 

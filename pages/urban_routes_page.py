@@ -1,9 +1,10 @@
+from typing import AnyStr
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import data.data
 from utils.retrieve_code import retrieve_phone_code
-from selenium.webdriver.common.keys import Keys
 
 
 class UrbanRoutesPage:
@@ -21,12 +22,10 @@ class UrbanRoutesPage:
     add_cc_number = (By.ID, 'number')
     cvv_code_field = (By.XPATH, "//input[@id='code' and @placeholder='12']")
     click_on_key = (By.XPATH,"//div[@class='modal.unusual']]")
-
-
-
-
-
-
+    cc_submit_button = (By.XPATH, "//button[@type='submit' and text()='Agregar']")
+    close_pay_method = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
+    message_field = (By.ID, 'comment')
+    requisites_for_ride
 
     def __init__(self, driver):
         self.driver = driver
@@ -134,8 +133,32 @@ class UrbanRoutesPage:
     def get_cvv_code(self):
         return self.driver.find_element(*self.cvv_code_field).get_property('value')
 
-    #def click_on_tab_key(self):
-          #  self.wait.until(EC.presence_of_element_located(self.click_on_key)).send_keys(Keys.TAB)
+    def get_cc_submit_button(self):
+        return self.wait.until(EC.element_to_be_clickable(self.cc_submit_button))
+
+    def click_cc_submit_button(self):
+        self.get_cc_submit_button().click()
+
+    def get_close_pay_method_button(self):
+        return self.wait.until(EC.element_to_be_clickable(self.close_pay_method))
+
+    def click_close_pay_method_button(self):
+        self.get_close_pay_method_button().click()
+
+    def get_message_field(self):
+        return self.wait.until(EC.presence_of_element_located(self.message_field))
+
+    def set_message_on_field(self, message_for_driver = None ):
+        if message_for_driver is None:
+         message_for_driver = data.data.message_for_driver
+        self.wait.until(EC.presence_of_element_located(self.message_field)).send_keys(message_for_driver)
+
+    def get_message_on_field(self):
+        return self.driver.find_element(*self.message_field).get_property('value')
+
+
+
+
 
 
 
