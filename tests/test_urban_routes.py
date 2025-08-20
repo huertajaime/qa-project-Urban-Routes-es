@@ -45,7 +45,9 @@ class TestUrbanRoutes:
         self.routes_page.get_cvv_code_field()
         self.routes_page.set_cvv_code()
         self.routes_page.get_cvv_code()
-        self.routes_page.click_on_tab_key()
+        #self.routes_page.click_on_tab_key()
+
+
 
 
 

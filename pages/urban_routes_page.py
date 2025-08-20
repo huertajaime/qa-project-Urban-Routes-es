@@ -19,8 +19,8 @@ class UrbanRoutesPage:
     payment_method = (By.CLASS_NAME, "pp-button.filled")
     cc_field_button = (By.XPATH, "//div[@class='pp-title' and text()='Agregar tarjeta']")
     add_cc_number = (By.ID, 'number')
-    cvv_code_field = (By.CLASS_NAME,"card-code-label" )
-    click_on_key = (By.XPATH,"//form[@class='card-wrapper']")
+    cvv_code_field = (By.XPATH, "//input[@id='code' and @placeholder='12']")
+    click_on_key = (By.XPATH,"//div[@class='modal.unusual']]")
 
 
 
@@ -30,7 +30,7 @@ class UrbanRoutesPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver,10)
+        self.wait = WebDriverWait(driver,5)
 
     def set_from(self, from_address):
         #self.driver.find_element(*self.from_field).send_keys(from_address)
@@ -124,18 +124,18 @@ class UrbanRoutesPage:
      #   self.set_cc_number(add_cc_number)
 
     def get_cvv_code_field(self):
-        return self.wait.until(EC.visibility_of_element_located(self.cvv_code_field))
+        return self.wait.until(EC.visibility_of_element_located(self.cvv_code_field)).click()
 
     def set_cvv_code(self, card_code=None):
         if card_code is None:
             card_code = data.data.card_code
-        self.wait.until(EC.visibility_of_element_located(self.cvv_code_field)).send_keys(card_code)
+        self.wait.until(EC.element_to_be_clickable(self.cvv_code_field)).send_keys(card_code)
 
     def get_cvv_code(self):
         return self.driver.find_element(*self.cvv_code_field).get_property('value')
 
-    def click_on_tab_key(self):
-        self.wait.until(EC.presence_of_element_located(self.click_on_key)).send_keys(Keys.TAB)
+    #def click_on_tab_key(self):
+          #  self.wait.until(EC.presence_of_element_located(self.click_on_key)).send_keys(Keys.TAB)
 
 
 
