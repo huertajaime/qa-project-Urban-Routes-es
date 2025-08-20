@@ -25,7 +25,7 @@ class UrbanRoutesPage:
     cc_submit_button = (By.XPATH, "//button[@type='submit' and text()='Agregar']")
     close_pay_method = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
     message_field = (By.ID, 'comment')
-    requisites_for_ride
+    requisites_for_ride = (By.XPATH, '//div[@class="reqs open"]//div[@class="r-sw-label" and text()="Manta y pañuelos" ]')
 
     def __init__(self, driver):
         self.driver = driver
@@ -155,6 +155,12 @@ class UrbanRoutesPage:
 
     def get_message_on_field(self):
         return self.driver.find_element(*self.message_field).get_property('value')
+
+    def get_requisites_for_ride(self):
+        return self.wait.until(EC.element_to_be_clickable(self.requisites_for_ride))
+
+    def click_on_requisites_for_ride(self):
+        self.get_requisites_for_ride().click()
 
 
 
