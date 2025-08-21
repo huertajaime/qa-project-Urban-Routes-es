@@ -44,6 +44,8 @@ class TestUrbanRoutes:
         self.routes_page.get_cc_number()
         self.routes_page.get_cvv_code_field()
         self.routes_page.set_cvv_code()
+        self.routes_page.get_cc_add_form()
+        self.routes_page.click_cc_add_form()
         self.routes_page.get_cvv_code()
         self.routes_page.get_cc_submit_button()
         self.routes_page.click_cc_submit_button()
@@ -52,17 +54,12 @@ class TestUrbanRoutes:
         self.routes_page.get_message_field()
         self.routes_page.set_message_on_field()
         self.routes_page.get_message_on_field()
-        self.routes_page.get_requisites_for_ride()
-        self.routes_page.click_on_requisites_for_ride()
-
-
-
-
-        #self.routes_page.click_on_tab_key()
-
-
-
-
+        self.routes_page.get_blanket_toggle_button()
+        self.routes_page.click_on_blanket_toggle_button()
+        self.routes_page.get_ice_cream_counter()
+        self.routes_page.click_max_ice_cream_counter()
+        self.routes_page.get_order_cab_button()
+        self.routes_page.click_on_order_cab_button()
 
         time.sleep(5)
 

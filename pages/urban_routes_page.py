@@ -19,16 +19,18 @@ class UrbanRoutesPage:
     cc_field_button = (By.XPATH, "//div[@class='pp-title' and text()='Agregar tarjeta']")
     add_cc_number = (By.ID, 'number')
     cvv_code_field = (By.XPATH, "//input[@id='code' and @placeholder='12']")
-    click_on_key = (By.XPATH,"//div[@class='modal.unusual']]")
+    cc_add_form = (By.XPATH,"//*[@id='root']/div/div[2]/div[2]/div[2]/form")
     cc_submit_button = (By.XPATH, "//button[@type='submit' and text()='Agregar']")
     close_pay_method = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
     message_field = (By.ID, 'comment')
-    requisites_for_ride = (By.XPATH, '//div[@class="r-sw-container"][.//div[text()="Manta y pañuelos"]]//span[@class="slider"]')
-
+    blanket_toggle_button = (By.XPATH, "//*[@id='root']/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span")
+    ice_cream_counter = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]')
+    order_cab_button = (By.XPATH, '//button[@class="smart-button"]/span[@class="smart-button-main" and text()="Pedir un taxi"]')
+    driver_ride_info = (By.XPATH, '//*[@id="root"]/div/div[5]/div[2]')
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver,15)
+        self.wait = WebDriverWait(driver,5)
 
     def set_from(self, from_address):
         #self.driver.find_element(*self.from_field).send_keys(from_address)
@@ -70,14 +72,9 @@ class UrbanRoutesPage:
         if phone_number is None:
             phone_number = data.data.phone_number
         self.wait.until(EC.presence_of_element_located(self.add_phone_number)).send_keys(phone_number)
-        #assert self.get_phone_number() == phone_number
 
     def get_phone_number(self):
         return self.driver.find_element(*self.add_phone_number).get_property('value')
-
-   # def set_new_phone_number(self, add_phone_number):
-    #    self.set_add_phone_number(add_phone_number)
-        #assert self.get_phone_number() == add_phone_number
 
     def get_submit_phone_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.submit_phone_button))
@@ -118,16 +115,19 @@ class UrbanRoutesPage:
     def get_cc_number(self):
         return self.driver.find_element(*self.add_cc_number).get_property('value')
 
-    #def set_new_cc_number(self, add_cc_number):
-     #   self.set_cc_number(add_cc_number)
-
     def get_cvv_code_field(self):
-        return self.wait.until(EC.visibility_of_element_located(self.cvv_code_field)).click()
+        return self.wait.until(EC.visibility_of_element_located(self.cvv_code_field))
 
     def set_cvv_code(self, card_code=None):
         if card_code is None:
             card_code = data.data.card_code
         self.wait.until(EC.element_to_be_clickable(self.cvv_code_field)).send_keys(card_code)
+
+    def get_cc_add_form(self):
+        return self.wait.until(EC.visibility_of_element_located(self.cc_add_form))
+
+    def click_cc_add_form(self):
+        self.get_cc_add_form().click()
 
     def get_cvv_code(self):
         return self.driver.find_element(*self.cvv_code_field).get_property('value')
@@ -155,14 +155,24 @@ class UrbanRoutesPage:
     def get_message_on_field(self):
         return self.driver.find_element(*self.message_field).get_property('value')
 
-    def get_requisites_for_ride(self):
-        return self.wait.until(EC.visibility_of_element_located(self.requisites_for_ride))
+    def get_blanket_toggle_button(self):
+        return self.wait.until(EC.visibility_of_element_located(self.blanket_toggle_button))
 
-    def click_on_requisites_for_ride(self):
-        checkbox = self.get_requisites_for_ride()
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",checkbox)
-        self.wait.until(EC.element_to_be_clickable(self.requisites_for_ride)).click()
+    def click_on_blanket_toggle_button(self):
+        self.get_blanket_toggle_button().click()
 
+    def get_ice_cream_counter(self):
+        return self.wait.until(EC.element_to_be_clickable(self.ice_cream_counter))
+
+    def click_max_ice_cream_counter(self):
+        self.get_ice_cream_counter().click()
+        self.get_ice_cream_counter().click()
+
+    def get_order_cab_button(self):
+        return self.wait.until(EC.element_to_be_clickable(self.order_cab_button))
+
+    def click_on_order_cab_button(self):
+        self.get_order_cab_button().click()
 
 
 
