@@ -1,5 +1,3 @@
-import time
-
 from data import data
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -17,7 +15,6 @@ class TestUrbanRoutes:
         cls.driver.get(data.urban_routes_url)
         cls.routes_page = urp.UrbanRoutesPage(cls.driver)
 
-
     def test_set_route(self):
         self.driver.get(data.urban_routes_url)
         routes_page = urp.UrbanRoutesPage(self.driver)
@@ -26,8 +23,6 @@ class TestUrbanRoutes:
         routes_page.set_route(address_from, address_to)
         assert routes_page.get_from() == address_from
         assert routes_page.get_to() == address_to
-
-
 
     def test_set_options(self):
         self.routes_page.click_on_taxi_button()
@@ -60,9 +55,10 @@ class TestUrbanRoutes:
         self.routes_page.click_max_ice_cream_counter()
         self.routes_page.get_order_cab_button()
         self.routes_page.click_on_order_cab_button()
-
-        time.sleep(5)
-
+        self.routes_page.get_driver_name_field()
+        driver_name=self.routes_page.get_driver_name()
+        assert driver_name != "", "Driver name not found"
+        print(f"name of driver: {driver_name}")
 
     @classmethod
     def teardown_class(cls):

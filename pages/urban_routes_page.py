@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import data.data
 from utils.retrieve_code import retrieve_phone_code
 
-
 class UrbanRoutesPage:
     from_field = (By.ID, 'from')
     to_field = (By.ID, 'to')
@@ -19,18 +18,19 @@ class UrbanRoutesPage:
     cc_field_button = (By.XPATH, "//div[@class='pp-title' and text()='Agregar tarjeta']")
     add_cc_number = (By.ID, 'number')
     cvv_code_field = (By.XPATH, "//input[@id='code' and @placeholder='12']")
-    cc_add_form = (By.XPATH,"//*[@id='root']/div/div[2]/div[2]/div[2]/form")
+    cc_add_form = (By.CSS_SELECTOR, "div.card-wrapper")
     cc_submit_button = (By.XPATH, "//button[@type='submit' and text()='Agregar']")
     close_pay_method = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
     message_field = (By.ID, 'comment')
-    blanket_toggle_button = (By.XPATH, "//*[@id='root']/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span")
-    ice_cream_counter = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]')
+    blanket_toggle_button = (By.XPATH, "//div[@class='r-sw-label' and text()='Manta y pañuelos']/following::span[@class='slider round'][1]")
+    ice_cream_counter = (By.XPATH, "//div[@class='r-counter-label' and text()='Helado']/following::div[contains(@class,'counter-plus')][1]")
     order_cab_button = (By.XPATH, '//button[@class="smart-button"]/span[@class="smart-button-main" and text()="Pedir un taxi"]')
-    driver_ride_info = (By.XPATH, '//*[@id="root"]/div/div[5]/div[2]')
+    driver_name_field = (By.XPATH, "//div[@class='order-btn-group']/div[2]")
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver,5)
+        self.wait_ride = WebDriverWait(driver,40)
 
     def set_from(self, from_address):
         #self.driver.find_element(*self.from_field).send_keys(from_address)
@@ -173,6 +173,25 @@ class UrbanRoutesPage:
 
     def click_on_order_cab_button(self):
         self.get_order_cab_button().click()
+
+    def get_driver_name_field(self):
+        return self.wait_ride.until(EC.presence_of_element_located(self.driver_name_field))
+
+    def get_driver_name(self):
+        return self.get_driver_name_field().text
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
