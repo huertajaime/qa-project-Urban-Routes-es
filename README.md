@@ -1,6 +1,9 @@
 # Proyecto Urban Routes 
+
 ## _Este proyecto contiene pruebas que automatizan flujos clave  de la aplicacion usando de base a la Programacion Orientada a Objetos para las funcionalidades principales al solicitar un viaje en la app Urban Routes._
+
 #### Las funcionalidades probadas: 
+
 - Solicitar un taxi.
 - Seleccionar la tarifa comfort.
 - Ingresar un numero telefonico e interceptar el codigo con el codigo ya proporcionado.
