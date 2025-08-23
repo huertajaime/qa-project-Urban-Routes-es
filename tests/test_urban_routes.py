@@ -59,6 +59,24 @@ class TestUrbanRoutes:
         driver_name=self.routes_page.get_driver_name()
         assert driver_name != "", "Driver name not found"
         print(f"name of driver: {driver_name}")
+        self.routes_page.get_order_details_button()
+        self.routes_page.click_on_order_details_button()
+        self.routes_page.get_pickup_location_element()
+        pickup = self.routes_page.get_pickup_location_details()
+        assert pickup != ""
+        print(f"Lugar de recogida: {pickup}")
+        self.routes_page.get_destination_location_element()
+        destination = self.routes_page.get_destination_location_details()
+        assert destination != ""
+        print(f"Destino: {destination}")
+        self.routes_page.get_payment_method_element()
+        payment_info = self.routes_page.get_payment_method_details()
+        assert payment_info == "Tarjeta"
+        print(f"Forma de pago: {payment_info}")
+        self.routes_page.get_trip_price_element()
+        price = self.routes_page.get_trip_price_details()
+        assert "Precio" in price
+        print(f"El costo sera de: {price}")
 
     @classmethod
     def teardown_class(cls):

@@ -26,6 +26,11 @@ class UrbanRoutesPage:
     ice_cream_counter = (By.XPATH, "//div[@class='r-counter-label' and text()='Helado']/following::div[contains(@class,'counter-plus')][1]")
     order_cab_button = (By.XPATH, '//button[@class="smart-button"]/span[@class="smart-button-main" and text()="Pedir un taxi"]')
     driver_name_field = (By.XPATH, "//div[@class='order-btn-group']/div[2]")
+    order_details_button = (By.XPATH, "//div[text()='Detalles']/preceding-sibling::button")
+    pickup_location = (By.XPATH, "//div[@class='order-details-content']/div[@class='o-d-h' and following-sibling::div[text()='Lugar de recogida']]")
+    destination_location = (By.XPATH, "//div[@class='order-details-content']/div[@class='o-d-h' and following-sibling::div[text()='Dirección de destino']]")
+    payment_method_details = (By.XPATH, "//div[@class='order-details-content']/div[@class='o-d-h' and following-sibling::div[text()='Método de pago']]")
+    trip_price = (By.XPATH, "//div[@class='order-details-content']/div[@class='o-d-sh' and contains(text(),'Precio')]")
 
     def __init__(self, driver):
         self.driver = driver
@@ -33,11 +38,9 @@ class UrbanRoutesPage:
         self.wait_ride = WebDriverWait(driver,40)
 
     def set_from(self, from_address):
-        #self.driver.find_element(*self.from_field).send_keys(from_address)
         self.wait.until(EC.presence_of_element_located(self.from_field)).send_keys(from_address)
 
     def set_to(self, to_address):
-        #self.driver.find_element(*self.to_field).send_keys(to_address)
         self.wait.until(EC.presence_of_element_located(self.to_field)).send_keys(to_address)
 
     def get_from(self):
@@ -179,6 +182,38 @@ class UrbanRoutesPage:
 
     def get_driver_name(self):
         return self.get_driver_name_field().text
+
+    def get_order_details_button(self):
+        return self.wait_ride.until(EC.element_to_be_clickable(self.order_details_button))
+
+    def click_on_order_details_button(self):
+        self.get_order_details_button().click()
+
+    def get_pickup_location_element(self):
+        return self.wait.until(EC.presence_of_element_located(self.pickup_location))
+
+    def get_pickup_location_details(self):
+        return self.get_pickup_location_element().text
+
+    def get_destination_location_element(self):
+        return self.wait.until(EC.presence_of_element_located(self.destination_location))
+
+    def get_destination_location_details(self):
+        return self.get_destination_location_element().text
+
+    def get_payment_method_element(self):
+        return self.wait.until(EC.presence_of_element_located(self.payment_method_details))
+
+    def get_payment_method_details(self):
+        return self.get_payment_method_element().text
+
+    def get_trip_price_element(self):
+        return self.wait.until(EC.presence_of_element_located(self.trip_price))
+
+    def get_trip_price_details(self):
+        return self.get_trip_price_element().text
+
+
 
 
 
