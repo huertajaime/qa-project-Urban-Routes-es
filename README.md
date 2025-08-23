@@ -15,6 +15,6 @@
 
 - Lenguaje de programacion Python 3.13
 - Pytest como framework de pruebas
-- Selenium WebDriver para automatizacion de navegador Chrome
+- Selenium WebDriver para automatizacion, utilizando de navegador Google Chrome
 - Localizacion de elementos con ID, XPATH, CSS_SELECTOR, CLASS_NAME
 - Sincronizacion explicita en pruebas con WebDriverWait
