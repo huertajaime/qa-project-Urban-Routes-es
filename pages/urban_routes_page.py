@@ -76,9 +76,6 @@ class UrbanRoutesPage:
             phone_number = data.data.phone_number
         self.wait.until(EC.presence_of_element_located(self.add_phone_number)).send_keys(phone_number)
 
-    def get_phone_number(self):
-        return self.driver.find_element(*self.add_phone_number).get_property('value')
-
     def get_submit_phone_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.submit_phone_button))
 
@@ -115,12 +112,6 @@ class UrbanRoutesPage:
             card_number = data.data.card_number
         self.wait.until(EC.presence_of_element_located(self.add_cc_number)).send_keys(card_number)
 
-    def get_cc_number(self):
-        return self.driver.find_element(*self.add_cc_number).get_property('value')
-
-    def get_cvv_code_field(self):
-        return self.wait.until(EC.visibility_of_element_located(self.cvv_code_field))
-
     def set_cvv_code(self, card_code=None):
         if card_code is None:
             card_code = data.data.card_code
@@ -131,9 +122,6 @@ class UrbanRoutesPage:
 
     def click_cc_add_form(self):
         self.get_cc_add_form().click()
-
-    def get_cvv_code(self):
-        return self.driver.find_element(*self.cvv_code_field).get_property('value')
 
     def get_cc_submit_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.cc_submit_button))
@@ -146,9 +134,6 @@ class UrbanRoutesPage:
 
     def click_close_pay_method_button(self):
         self.get_close_pay_method_button().click()
-
-    def get_message_field(self):
-        return self.wait.until(EC.presence_of_element_located(self.message_field))
 
     def set_message_on_field(self, message_for_driver = None ):
         if message_for_driver is None:
