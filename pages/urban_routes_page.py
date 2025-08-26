@@ -24,6 +24,7 @@ class UrbanRoutesPage:
     message_field = (By.ID, 'comment')
     blanket_toggle_button = (By.XPATH, "//div[@class='r-sw-label' and text()='Manta y pañuelos']/following::span[@class='slider round'][1]")
     ice_cream_counter = (By.XPATH, "//div[@class='r-counter-label' and text()='Helado']/following::div[contains(@class,'counter-plus')][1]")
+    ice_cream_max = (By.XPATH, "//div[@class='r-counter-label' and text()='Helado']/following::div[@class='counter-value'][1]")
     order_cab_button = (By.XPATH, '//button[@class="smart-button"]/span[@class="smart-button-main" and text()="Pedir un taxi"]')
     driver_name_field = (By.XPATH, "//div[@class='order-btn-group']/div[2]")
     order_details_button = (By.XPATH, "//div[text()='Detalles']/preceding-sibling::button")
@@ -65,6 +66,9 @@ class UrbanRoutesPage:
     def click_comfort_option_button(self):
         self.get_comfort_option_button().click()
 
+    def confirm_comfort_option(self):
+        return self.driver.find_element(*self.comfort_tariff_card).get_attribute("class")
+
     def get_phone_number_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.phone_number_button))
 
@@ -85,6 +89,9 @@ class UrbanRoutesPage:
     def set_phone_code_field(self):
         phone_code = retrieve_phone_code(self.driver)
         self.wait.until(EC.presence_of_element_located(self.phone_code_field)).send_keys(phone_code)
+
+    def confirm_phone_is_set(self):
+        return self.driver.find_element(*self.phone_code_field).get_attribute("value")
 
     def get_confirm_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.confirm_button))
@@ -112,6 +119,9 @@ class UrbanRoutesPage:
             card_number = data.data.card_number
         self.wait.until(EC.presence_of_element_located(self.add_cc_number)).send_keys(card_number)
 
+    def get_cc_number(self):
+        return self.driver.find_element(*self.add_cc_number).get_property('value')
+
     def set_cvv_code(self, card_code=None):
         if card_code is None:
             card_code = data.data.card_code
@@ -122,6 +132,9 @@ class UrbanRoutesPage:
 
     def click_cc_add_form(self):
         self.get_cc_add_form().click()
+
+    def get_cvv_code(self):
+        return self.driver.find_element(*self.cvv_code_field).get_property('value')
 
     def get_cc_submit_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.cc_submit_button))
@@ -134,6 +147,9 @@ class UrbanRoutesPage:
 
     def click_close_pay_method_button(self):
         self.get_close_pay_method_button().click()
+
+    def get_message_field(self):
+        return self.wait.until(EC.presence_of_element_located(self.message_field))
 
     def set_message_on_field(self, message_for_driver = None ):
         if message_for_driver is None:
@@ -156,11 +172,18 @@ class UrbanRoutesPage:
         self.get_ice_cream_counter().click()
         self.get_ice_cream_counter().click()
 
+    def get_counter_ice_cream_element(self):
+        element = self.driver.find_element(*self.ice_cream_max)
+        return element.text
+
     def get_order_cab_button(self):
         return self.wait.until(EC.element_to_be_clickable(self.order_cab_button))
 
     def click_on_order_cab_button(self):
         self.get_order_cab_button().click()
+
+    def confirm_cab_button_element(self):
+        return self.wait.until(EC.visibility_of_element_located(self.order_cab_button))
 
     def get_driver_name_field(self):
         return self.wait_ride.until(EC.presence_of_element_located(self.driver_name_field))
